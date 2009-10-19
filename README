@@ -1,0 +1,95 @@
+What Is It?
+===========
+
+Tidy gives you an organized way to manage your CSS and Javascripts files.  In
+essence, Tidy gives you two helper methods in the ApplicationHelpers module:
+
+  - tidy_javascripts
+  - tidy_stylesheets
+
+You would invoke either or both methods in your layout(s).  For example,
+
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+      <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+      <title>My Rails App</title>
+      <%= stylesheet_link_tag tidy_stylesheets %>
+      <%= javascript_include_tag tidy_javascripts %>
+    </head>
+    <body>
+      <%= yield %>
+    </body>
+  </html>
+
+For Javascripts, Tidy includes these Javascript files in the following order,
+if the files exist:
+
+  1. public/javascripts/application.js
+  2. public/javascripts/<controller-name>/_controller.js
+  3. public/javascripts/<template-path>.js
+  4. public/javascript/<partial-path(s)>.js
+
+For stylesheets, Tidy includes these stylesheets in the following order, if
+the files exist:
+
+  1. public/stylesheets/application.css
+  2. public/stylesheets/<controller-name>/_controller.css
+  3. public/stylesheets/<template-path>.css
+  4. public/stylesheets/<partial-path(s)>.js
+
+Suppose your Rails application resembles the following:
+
+  my_rails_app/
+    app/
+      controllers/
+        projects_controller.rb
+    view/
+      projects/
+        edit.html.erb
+        index.html.erb
+        new.html.erb
+        show.html.erb
+      shared/
+        _navigation.html.erb
+    public/
+      javascripts/
+        application.js
+        projects/
+          _controller.js
+          index.js
+      stylesheets/
+        application.css
+        projects/
+          index.css
+        shared/
+          _navigation.css
+
+Rendering the projects/index view will cause Tidy to load the following
+Javascript files:
+
+  1. public/javascripts/application.js
+  2. public/javascripts/projects/_controller.js
+  3. public/javascripts/projects/index.js
+  4. public/javascripts/shared/_navigation.js
+
+Similarly, rendering the projects/index view will cause Tidy to load the
+following CSS files:
+
+  1. public/stylesheets/application.css
+  2. public/stylesheets/projects/index.css
+  3. public/stylesheets/shared/_navigation.css
+
+Tidy won't try to load public/stylesheets/projects/_controller.css because it
+does not exist.
+
+
+Credits
+=======
+
+This plugin was originally inspired by Peter Harkin's blog post at
+http://push.cx/2006/tidy-stylesheets-in-rails.  I first expanded his work to
+cover Javascripts also.  More recently, I turned it into a plugin.
+
+Copyright (c) bitaxis.com, released under the MIT license.
