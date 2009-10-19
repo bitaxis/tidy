@@ -1,11 +1,14 @@
-What Is It?
-===========
+Introduction
+============
 
-Tidy gives you an organized way to manage your CSS and Javascripts files.  In
-essence, Tidy gives you two helper methods in the ApplicationHelpers module:
+Tidy gives you an easy way to organize/manage your CSS and Javascript files
+via two helper methods in the ApplicationHelpers module:
 
-  - tidy_javascripts
-  - tidy_stylesheets
+  tidy_javascripts
+  tidy_stylesheets
+
+Place your stylesheets and script files in pre-defined sub-directories under
+your app's public/, and Tidy figures out which ones to load.
 
 
 Usage
@@ -15,7 +18,7 @@ First, install the plugin using this command:
 
   script/plugin install http://github.com/bitaxis/tidy.git
 
-Next, invoke either or both methods in your layout(s).  For example,
+Next, invoke either or both methods in your layout(s).  For instance,
 
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -31,8 +34,18 @@ Next, invoke either or both methods in your layout(s).  For example,
     </body>
   </html>
 
+Then, author your code, taking care to place CSS and Javascript files in the
+following sub-directories:
+
+  public/javascripts
+  public/stylesheets
+
+
+How It Works
+============
+
 For Javascripts, Tidy includes these Javascript files in the following order,
-skipping non-existent files:
+skipping non-existent ones:
 
   1. public/javascripts/application.js
   2. public/javascripts/<controller-name>/_controller.js
@@ -40,12 +53,16 @@ skipping non-existent files:
   4. public/javascript/<partial-path(s)>.js
 
 For stylesheets, Tidy includes these stylesheets in the following order,
-skipping non-existent files:
+skipping non-existent ones:
 
   1. public/stylesheets/application.css
   2. public/stylesheets/<controller-name>/_controller.css
   3. public/stylesheets/<template-path>.css
   4. public/stylesheets/<partial-path(s)>.css
+
+
+Example
+=======
 
 Suppose your Rails application resembles the following:
 
@@ -92,11 +109,18 @@ Tidy won't try to load public/stylesheets/projects/_controller.css because it
 does not exist.
 
 
+Low Pro
+=======
+
+Tidy works great with Dan Webb's Low Pro for unobtrusive Javascripting.  If
+you are not yet a fan, check it out at http://github.com/danwrong/low-pro/.
+
+
 Credits
 =======
 
-This plugin was originally inspired by Peter Harkin's blog post at
-http://push.cx/2006/tidy-stylesheets-in-rails.  I first expanded his work to
-cover Javascripts also.  More recently, I turned it into a plugin.
+Tidy was originally inspired by Peter Harkin's blog post at
+http://push.cx/2006/tidy-stylesheets-in-rails.  I first expanded his idea to
+also manage Javascripts.  It is now available as a plugin.
 
 Copyright (c) bitaxis.com, released under the MIT license.
