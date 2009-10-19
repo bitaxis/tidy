@@ -7,7 +7,15 @@ essence, Tidy gives you two helper methods in the ApplicationHelpers module:
   - tidy_javascripts
   - tidy_stylesheets
 
-You would invoke either or both methods in your layout(s).  For example,
+
+Usage
+=====
+
+First, install the plugin using this command:
+
+  script/plugin install http://github.com/bitaxis/tidy.git
+
+Next, invoke either or both methods in your layout(s).  For example,
 
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -24,20 +32,20 @@ You would invoke either or both methods in your layout(s).  For example,
   </html>
 
 For Javascripts, Tidy includes these Javascript files in the following order,
-if the files exist:
+skipping non-existent files:
 
   1. public/javascripts/application.js
   2. public/javascripts/<controller-name>/_controller.js
   3. public/javascripts/<template-path>.js
   4. public/javascript/<partial-path(s)>.js
 
-For stylesheets, Tidy includes these stylesheets in the following order, if
-the files exist:
+For stylesheets, Tidy includes these stylesheets in the following order,
+skipping non-existent files:
 
   1. public/stylesheets/application.css
   2. public/stylesheets/<controller-name>/_controller.css
   3. public/stylesheets/<template-path>.css
-  4. public/stylesheets/<partial-path(s)>.js
+  4. public/stylesheets/<partial-path(s)>.css
 
 Suppose your Rails application resembles the following:
 
@@ -45,14 +53,14 @@ Suppose your Rails application resembles the following:
     app/
       controllers/
         projects_controller.rb
-    view/
-      projects/
-        edit.html.erb
-        index.html.erb
-        new.html.erb
-        show.html.erb
-      shared/
-        _navigation.html.erb
+      views/
+        projects/
+          edit.html.erb
+          index.html.erb
+          new.html.erb
+          show.html.erb
+        shared/
+          _navigation.html.erb
     public/
       javascripts/
         application.js
@@ -72,7 +80,6 @@ Javascript files:
   1. public/javascripts/application.js
   2. public/javascripts/projects/_controller.js
   3. public/javascripts/projects/index.js
-  4. public/javascripts/shared/_navigation.js
 
 Similarly, rendering the projects/index view will cause Tidy to load the
 following CSS files:
