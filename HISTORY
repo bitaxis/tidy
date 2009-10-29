@@ -1,0 +1,12 @@
+2009-10-28
+==========
+
+Updated to work with Rails 2.3.4.  The the initial commit works with Rails
+2.2.2, but not 2.3.4.  So this change breaks backward compatibility.
+
+
+2009-10-19
+==========
+
+Initial commit.
+
