@@ -4,9 +4,9 @@ module ActionController
 
     # Chain the render_for_file method so that we can capture the view template being rendered
 
-    def render_for_file_with_capture(template_path, status = nil, layout = nil, locals = {})
-      @rendered_template = template_path
-      render_for_file_without_capture(template_path, status, layout, locals)
+    def render_for_file_with_capture(template, status = nil, layout = nil, locals = {})
+      @rendered_template = template.path_without_format_and_extension
+      render_for_file_without_capture(template, status, layout, locals)
     end
 
     alias_method_chain :render_for_file, :capture
