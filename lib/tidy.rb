@@ -33,42 +33,46 @@ module ActionView
 
 end
 
-module ApplicationHelper
+module ActionView
 
-  def tidy_javascripts
-    @javascripts ||= []
-    tidy_places.each do |javascript|
-      @javascripts << javascript if File.exists? "#{Dir.pwd}/public/javascripts/#{javascript}.js"
+  class Base
+
+    def tidy_javascripts
+      @javascripts ||= []
+      tidy_places.each do |javascript|
+        @javascripts << javascript if File.exists? "#{Dir.pwd}/public/javascripts/#{javascript}.js"
+      end
+      @javascripts
     end
-    @javascripts
-  end
 
-  def tidy_stylesheets
-    @stylesheets ||= []
-    tidy_places.each do |stylesheet|
-      @stylesheets << stylesheet if File.exists? "#{Dir.pwd}/public/stylesheets/#{stylesheet}.css"
+    def tidy_stylesheets
+      @stylesheets ||= []
+      tidy_places.each do |stylesheet|
+        @stylesheets << stylesheet if File.exists? "#{Dir.pwd}/public/stylesheets/#{stylesheet}.css"
+      end
+      @stylesheets
     end
-    @stylesheets
-  end
 
-private
+  private
 
-  def rendered_view_and_template
-    ["application", "#{controller.controller_path}/_controller", "#{@rendered_template}"]
-  end
-
-  def rendered_partials
-    return [] unless @rendered_partials
-    @rendered_partials.collect do |partial|
-      parts = partial.split(Regexp.new(File::SEPARATOR))
-      parts[-1].insert(0, "_")
-      parts.insert(0, controller_name) if parts.length < 2
-      parts.join(File::SEPARATOR)
+    def rendered_view_and_template
+      ["application", "#{controller.controller_path}/_controller", "#{@rendered_template}"]
     end
-  end
 
-  def tidy_places
-    rendered_view_and_template + rendered_partials
+    def rendered_partials
+      return [] unless @rendered_partials
+      @rendered_partials.collect do |partial|
+        parts = partial.split(Regexp.new(File::SEPARATOR))
+        parts[-1].insert(0, "_")
+        parts.insert(0, controller_name) if parts.length < 2
+        parts.join(File::SEPARATOR)
+      end
+    end
+
+    def tidy_places
+      rendered_view_and_template + rendered_partials
+    end
+
   end
 
 end

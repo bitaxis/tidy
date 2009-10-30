@@ -1,3 +1,9 @@
+2009-10-29
+==========
+
+Moved tidy_javascripts and tidy_stylesheets methods to be under ActionView::Base class.
+
+
 2009-10-28
 ==========
 
