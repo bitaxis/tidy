@@ -56,7 +56,7 @@ module ActionView
   private
 
     def rendered_view_and_template
-      ["application", "#{controller.controller_path}/_controller", "#{@rendered_template}"]
+      [template.name, "application", "#{controller.controller_path}/_controller", "#{@rendered_template}"]
     end
 
     def rendered_partials
