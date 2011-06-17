@@ -24,7 +24,7 @@ module ActionView
       unless @tidy_places
         @tidy_places = ["#{controller.controller_path}/_controller", @tidy_template]
         @tidy_places.insert(0, @tidy_layout) if @tidy_layout
-        @tidy_places << @tidy_partials if @tidy_partials
+        @tidy_places += @tidy_partials if @tidy_partials
       end
       @tidy_places
     end
@@ -35,7 +35,11 @@ module ActionView
     
     def _render_partial_with_capture(options, &block)
       @tidy_partials ||= []
-      @tidy_partials << options[:partial] unless @tidy_partials.include?(options[:partial])
+      parts = options[:partial].split("/")
+      parts.insert(0, controller_name) unless parts.length > 1
+      parts[-1] = "_#{parts[-1]}"
+      partial = parts.join("/")
+      @tidy_partials << partial unless @tidy_partials.include?(partial)
       _render_partial_without_capture(options, &block)
     end
     
